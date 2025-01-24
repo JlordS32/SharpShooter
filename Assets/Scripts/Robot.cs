@@ -4,17 +4,12 @@ using UnityEngine.AI;
 
 public class Robot : MonoBehaviour
 {
+    [SerializeField] private FirstPersonController player;
     private NavMeshAgent agent;
-    private FirstPersonController player;
 
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-    }
-
-    private void Start()
-    {
-        player = FindFirstObjectByType<FirstPersonController>();
     }
 
     private void Update()

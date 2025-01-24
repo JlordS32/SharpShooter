@@ -1,16 +1,28 @@
+using StarterAssets;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    private StarterAssetsInputs starterAssetsInputs;
+
+    private void Awake()
     {
-        
+        starterAssetsInputs = GetComponentInParent<StarterAssetsInputs>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        
+        if (starterAssetsInputs.shoot)
+        {
+            if (Physics.Raycast(Camera.main.transform.position, Camera.main.transform.forward, out RaycastHit hit, Mathf.Infinity))
+            {
+                if (hit.collider.CompareTag("Enemy")) {
+                    EnemyHealth enemyHealth = hit.collider.GetComponent<EnemyHealth>();
+                    enemyHealth.TakeDamage(1);
+                }
+            }
+
+            starterAssetsInputs.ShootInput(false);
+        }
     }
 }
